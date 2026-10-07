@@ -1,6 +1,6 @@
 # Day Block Planner (Obsidian plugin)
 
-ノートの中に Google カレンダーの「1日ビュー」のようなものを埋め込み、todoブロックをドラッグで動かせるプラグインです。
+ノートの中に Google カレンダーの「1日ビュー」のようなものを埋め込み、todoブロックをドラッグで動かせるObsidianのプラグインです。
 
 ![alt text](image.png)
 
