@@ -56,6 +56,13 @@ npm run build   # tsc 型チェック + esbuild バンドル
 npm run dev     # watch ビルド
 ```
 
+### コードを書き換えた後に Obsidian に反映させたいとき
+
+1. `npm run build` を実行
+2. `main.js` と `styles.css` を `<Vault>/.obsidian/plugins/day-block-planner/` にコピーして置き換える（cssに変更がなければmain.jsだけでOK）
+3. Obsidian → 設定 → コミュニティプラグイン → 再読み込み
+4. 一度 Day Block Planner プラグインを一度オフにして、再度オンにする
+
 ## アーキテクチャ
 
 ```
