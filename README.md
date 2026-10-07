@@ -1,7 +1,10 @@
 # Day Block Planner (Obsidian plugin)
 
-ノートの中に Google カレンダーの「1日ビュー」を埋め込み、ブロックをドラッグで動かせるプラグイン。
-データは **ただの Markdown テキスト** なので、プラグインを外しても読める・grep できる・Git で差分が見える。
+ノートの中に Google カレンダーの「1日ビュー」のようなものを埋め込み、ブロックをドラッグで動かせるプラグイン。
+
+![alt text](image.png)
+
+![alt text](image-1.png)
 
 ## 書き方
 
