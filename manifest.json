@@ -1,0 +1,9 @@
+{
+  "id": "day-block-planner",
+  "name": "Day Block Planner",
+  "version": "0.1.0",
+  "minAppVersion": "1.4.0",
+  "description": "ノートに埋め込める、Googleカレンダー風のドラッグ可能な1日タイムライン",
+  "author": "Baribo",
+  "isDesktopOnly": false
+}

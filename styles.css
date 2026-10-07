@@ -1,0 +1,150 @@
+/* Day Block Planner — uses Obsidian theme variables so it follows light/dark & themes */
+
+.dbp-root {
+  --dbp-hue: 250;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-m, 8px);
+  background: var(--background-primary);
+  user-select: none;
+  -webkit-user-select: none;
+  font-size: var(--font-ui-small);
+  overflow: hidden;
+}
+
+/* ── header ── */
+.dbp-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--background-modifier-border);
+  background: var(--background-secondary);
+  flex-wrap: wrap;
+}
+.dbp-date { font-weight: 600; color: var(--text-normal); }
+.dbp-summary { color: var(--text-muted); font-variant-numeric: tabular-nums; }
+.dbp-progress {
+  width: 72px; height: 6px; border-radius: 3px;
+  background: var(--background-modifier-border); overflow: hidden;
+}
+.dbp-progress-bar { display: block; height: 100%; background: var(--interactive-accent); }
+.dbp-add {
+  margin-left: auto;
+  font-size: var(--font-ui-smaller);
+  padding: 2px 10px;
+  height: auto;
+}
+
+/* ── grid ── */
+.dbp-scroller { overflow-y: auto; }
+.dbp-grid { position: relative; margin: 8px 8px 8px 0; }
+.dbp-line {
+  position: absolute; left: var(--dbp-gutter); right: 0; height: 0;
+  border-top: 1px solid var(--background-modifier-border);
+}
+.dbp-line-half { border-top-style: dashed; opacity: 0.5; }
+.dbp-hour-label {
+  position: absolute; left: 0; width: calc(var(--dbp-gutter) - 8px);
+  transform: translateY(-50%);
+  text-align: right;
+  color: var(--text-faint);
+  font-size: var(--font-ui-smaller);
+  font-variant-numeric: tabular-nums;
+}
+.dbp-layer {
+  position: absolute; top: 0; bottom: 0; left: var(--dbp-gutter); right: 0;
+  cursor: crosshair;
+}
+
+/* ── blocks ── */
+.dbp-block {
+  position: absolute;
+  box-sizing: border-box;
+  border-radius: 6px;
+  border-left: 3px solid var(--interactive-accent);
+  background: color-mix(in srgb, var(--interactive-accent) 18%, var(--background-primary));
+  color: var(--text-normal);
+  cursor: grab;
+  overflow: hidden;
+  touch-action: none;
+  transition: box-shadow 120ms ease, opacity 120ms ease;
+}
+.dbp-block.has-hue {
+  border-left-color: hsl(var(--dbp-hue) 65% 50%);
+  background: color-mix(in srgb, hsl(var(--dbp-hue) 65% 50%) 18%, var(--background-primary));
+}
+.dbp-block:hover { box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15); }
+.dbp-block.is-active {
+  cursor: grabbing;
+  z-index: 5;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  opacity: 0.92;
+}
+.dbp-block.is-done { opacity: 0.55; }
+.dbp-block.is-done .dbp-title { text-decoration: line-through; }
+
+.dbp-block-inner {
+  display: flex; flex-direction: column; gap: 1px;
+  padding: 3px 6px;
+  height: 100%; box-sizing: border-box;
+  pointer-events: none; /* let the block itself receive pointer events */
+}
+.dbp-block-inner .dbp-check { pointer-events: auto; }
+/* row 1: [checkbox] title */
+.dbp-row { display: flex; align-items: center; gap: 6px; min-width: 0; }
+.dbp-title { flex: 1; min-width: 0; font-weight: 600; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* row 2: time */
+.dbp-time { color: var(--text-muted); font-size: var(--font-ui-smaller); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.dbp-check {
+  flex: none; margin: 0;
+  width: 14px; height: 14px; cursor: pointer;
+}
+
+/* short blocks: single row (row + time side by side) */
+.dbp-block.is-compact .dbp-block-inner {
+  flex-direction: row; align-items: center; gap: 6px; padding-top: 0; padding-bottom: 0;
+}
+.dbp-block.is-compact .dbp-row { flex: 0 1 auto; }
+
+/* resize handles */
+.dbp-handle {
+  position: absolute; left: 0; right: 0; height: 7px;
+  cursor: ns-resize; z-index: 1;
+}
+.dbp-handle-top { top: 0; }
+.dbp-handle-bottom { bottom: 0; }
+.dbp-handle-bottom::after {
+  content: ""; position: absolute; left: 50%; bottom: 2px;
+  width: 18px; height: 2px; margin-left: -9px; border-radius: 1px;
+  background: var(--text-faint); opacity: 0;
+}
+.dbp-block:hover .dbp-handle-bottom::after { opacity: 0.6; }
+
+/* drag-to-create ghost */
+.dbp-ghost {
+  left: 1px; width: calc(100% - 3px);
+  border: 1px dashed var(--interactive-accent);
+  border-left-width: 3px;
+  padding: 2px 6px;
+  color: var(--text-accent);
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+}
+
+/* now line */
+.dbp-now {
+  position: absolute; left: -6px; right: 0; height: 0;
+  border-top: 2px solid var(--color-red);
+  z-index: 4; pointer-events: none;
+}
+.dbp-now::before {
+  content: ""; position: absolute; left: 0; top: -6px;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--color-red);
+}
+.dbp-now.is-hidden { display: none; }
+
+.dbp-root.is-dragging, .dbp-root.is-dragging * { cursor: grabbing !important; }
+
+.dbp-modal-error { color: var(--text-error); min-height: 1.2em; margin: 4px 0; }
